@@ -1,0 +1,36 @@
+#include <Servo.h>
+
+Servo myservo;
+
+int buttonState = 0;
+int Position = 0;
+int a=0;
+
+void setup()
+{
+  pinMode(2, INPUT);
+  pinMode(A0, OUTPUT);
+  pinMode(13, OUTPUT);
+  myservo.attach (9);
+  myservo.write (0);
+}
+
+void loop()
+{
+  buttonState = digitalRead (2);
+  if(buttonState == HIGH){
+    digitalWrite (13, HIGH);
+    for (a=1; a<=45; a++){
+      Position++;
+      myservo.write(Position);
+      if ((Position) >= 179){
+        myservo.write(0);
+        Position = 0;
+        break;
+      }
+      delay(10);
+    }
+    digitalWrite(13, LOW);
+  }
+  delay(10);
+}
